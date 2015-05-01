@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="jkt.centralisateur.controller" />
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- 
+	   Mapping URL / controller 
+	-->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/login.html">urlFileNameViewController</prop>
+                <prop key="/login_failed.do">urlFileNameViewController</prop>
+                <prop key="/inscription.do">inscriptionController</prop>
+                <prop key="/inscription_confirmation.do">confirmationInscriptionController</prop>
+                
+                <prop key="/secure/testArc.do">testArcController</prop>
+
+                <prop key="/secure/admin/performanceMonitor.do">performanceMonitorController</prop>
+                <prop key="/secure/admin/servicesScoreboard.do">servicesScoreboardController</prop>
+                <prop key="/secure/admin/supervision.do">supervisionController</prop>
+            </props>
+		</property>
+	</bean>
+
+
+    <!-- 
+        View resolver
+    -->
+
+    <bean class="org.springframework.js.ajax.AjaxUrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.webflow.mvc.view.FlowAjaxTilesView"/>
+        <property name="order" value="0" />
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+       <property name="basename" value="views" />
+       <property name="order" value="1" />
+    </bean>
+
+
+    
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">   
+            <list>           
+                <value>/WEB-INF/defs/templates.xml</value> 
+            </list>  
+        </property>   
+    </bean>
+
+
+    <!-- 
+        Controllers
+    -->
+	<bean id="urlFileNameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+	
+	<bean id="inscriptionController" class="jkt.centralisateur.controller.InscriptionController">
+	   <property name="userService" ref="userService" />
+	   <property name="mailSender" ref="mailSender" />
+	   <property name="inscriptionConfirmationEmail" ref="inscriptionConfirmationEmail" />
+       <property name="sessionForm" value="true" />
+       <property name="commandClass" value="jkt.centralisateur.storage.dto.UserDto" />
+       <property name="commandName" value="formulaire" />
+       <property name="formView" value="inscription" />
+       <property name="successView" value="inscriptionConfirmation" />
+	</bean>
+	
+	<bean id="confirmationInscriptionController" class="jkt.centralisateur.controller.ValidationInscriptionController">
+	   <property name="userService" ref="userService" />
+	</bean>
+	
+	<bean id="testArcController" class="jkt.centralisateur.controller.TestArcController">
+       <property name="testArcService" ref="testArcService" />
+    </bean>
+    
+    <bean id="performanceMonitorController" class="jkt.centralisateur.controller.PerformanceMonitorController">
+       <property name="performanceCollector" ref="performanceCollector" />
+    </bean>
+   
+    <bean id="servicesScoreboardController" class="jkt.centralisateur.controller.ServicesScoreboardController">
+        <property name="serviceManager" ref="serviceManager" />
+    </bean>
+    
+    <bean id="supervisionController" class="jkt.centralisateur.controller.SupervisionController">
+        <property name="serviceManager" ref="serviceManager" />
+    </bean>
+    
+    
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                Aspect to inject some data in every modelAndViews
+                    (data like user privileges for example)
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    
+    <!-- <aop:config>          
+        <aop:pointcut id="handleRequestController" 
+            expression="execution(* jkt.centralisateur.controller.*.*(..))" />
+        <aop:aspect id="modelControllerAspect" ref="modelControllerInjector">
+            <aop:before method="before" pointcut-ref="handleRequestController"/>
+            <aop:after-returning 
+                method="handleRequestReturnInterceptor" 
+                pointcut-ref="handleRequestController"
+                returning="result"/>
+        </aop:aspect>
+    </aop:config>
+    
+    <bean id="modelControllerInjector" class="jkt.centralisateur.aspect.ModelControllerAspect" /> -->
+    
+</beans>
+	

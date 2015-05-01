@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--
+        Supervision 
+    -->
+    <bean id="supervisionMessages" class="jkt.centralisateur.common.i18n.Messages">
+        <property name="bundleName" value="supervisionMessages" />
+    </bean>
+    
+    <bean id="supervisionManager" class="jkt.centralisateur.interlocutor.supervision.SupervisionManager" >
+        <property name="messages" ref="supervisionMessages" />
+    </bean>
+    
+    <!--
+        Management 
+    -->
+    <bean id="serviceManager" class="jkt.centralisateur.interlocutor.ServiceManagerImpl">
+        <property name="services">
+            <list>
+                <ref bean="serviceChat"/>
+                <ref bean="serviceTcpExchange"/>
+            </list>
+        </property>
+        <property name="supervisionManager" ref="supervisionManager" />
+    </bean>
+        
+</beans>

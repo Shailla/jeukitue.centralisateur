@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!--
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		Security configuration
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	-->
+
+	<!-- Filter chain -->
+	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+		<security:filter-chain pattern="/do/not/filter" filters="none" /> <!-- Non-utilisé, laissé pour exemple -->
+	    <security:filter-chain pattern="/**" filters="httpSessionContextIntegrationFilter,
+				                                      formAuthenticationProcessingFilter,
+				                                      filterInvocationInterceptor" />
+		</security:filter-chain-map>
+	</bean>
+
+	<!-- Invocation interceptor filter -->
+	<bean id="filterInvocationInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="decisionManager" />
+		<property name="securityMetadataSource">
+			<security:filter-security-metadata-source>
+				<security:intercept-url pattern="/secure/admin/**" access="ROLE_ADMIN" />
+				<security:intercept-url pattern="/secure/**" access="ROLE_ADMIN,ROLE_USER" />
+			</security:filter-security-metadata-source>
+		</property>
+	</bean>
+
+	<!-- Session context integration filter -->
+	<!-- <bean id="httpSessionContextIntegrationFilter" class="org.springframework.security.web.context.HttpSessionContextIntegrationFilter" /> -->
+	<bean id="httpSessionContextIntegrationFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter" />
+
+	<!-- Authentication processing filter -->
+	<bean id="formAuthenticationProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="filterProcessesUrl">
+			<value>/j_acegi_security_check</value>
+		</property>
+		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
+		<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+		<property name="authenticationManager" ref="authenticationManager" />
+	</bean>
+	
+	<bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" >
+        <property name="defaultFailureUrl" value="/login_failed.do" />
+    </bean>
+	
+	<bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler" >
+        <property name="defaultTargetUrl" value="/secure/welcome.do" />
+    </bean>
+
+	<bean id="decisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<property name="allowIfAllAbstainDecisions" value="false" />
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.springframework.security.access.vote.RoleVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Authentication manager -->
+	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref bean="daoAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userAuthenticater" />
+	</bean>
+
+	<bean id="userAuthenticater" class="jkt.centralisateur.authentication.UserAuthenticater">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<!--
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ I18n
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	-->
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+
+	<!--
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Error
+		handling
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	-->
+
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!--
+					<prop key="Exception1">exception1</prop> <prop
+					key="Exception2">exception2</prop>
+				-->
+			</props>
+		</property>
+		<property name="exceptionAttribute" value="exceptionToHandle" />
+		<property name="defaultStatusCode" value="500" />
+		<property name="warnLogCategory" value="WARN" />
+		<property name="defaultErrorView" value="unknownException" />
+	</bean>
+
+
+	<!--
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Mail
+		sending
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	-->
+
+	<bean name="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.free.fr" />
+		<property name="port" value="25" />
+		<property name="username" value="ahuut" />
+		<property name="password" value="sort21" />
+	</bean>
+
+	<bean name="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="inscriptionConfirmationEmail" class="jkt.centralisateur.mail.InscriptionConfirmationEmail">
+		<property name="velocityEngine" ref="velocityEngine" />
+		<property name="vmTemplate" value="file:/velocity-templates/inscription-confirmation-mail.vm" />
+	</bean>
+
+</beans>

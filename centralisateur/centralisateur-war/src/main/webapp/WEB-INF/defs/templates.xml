@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Templates -->
+	<definition name="template" template="/WEB-INF/templates/template.jsp">
+		<put-attribute name="title" value="Centralisateur JKT" />
+		<put-attribute name="menu" value="/WEB-INF/views/menu/menu.jsp" />
+	</definition>
+
+
+    <!-- Définitions -->
+    <definition name="downloads" extends="template">
+       <put-attribute name="content" value="/WEB-INF/views/downloads.jsp" />
+    </definition>
+    
+	<definition name="welcome" extends="template">
+	   <put-attribute name="content" value="/WEB-INF/views/welcome.jsp" />
+	</definition>
+	
+    <definition name="tchat" extends="template">
+       <put-attribute name="content" value="/WEB-INF/views/tchat.jsp" />
+    </definition>
+
+    <definition name="welcomeAdmin" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/welcomeAdmin.jsp" />
+    </definition>
+    
+    <definition name="supervision" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/interlocutor/supervision.jsp" />
+    </definition>
+    
+    <definition name="servicesScoreboard" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/interlocutor/servicesScoreboard.jsp" />
+    </definition>
+    
+    <definition name="serviceChat" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/interlocutor/serviceChat.jsp" />
+    </definition>
+    
+    <definition name="modifyUser" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/users/modifyUser.jsp" />
+    </definition>
+    
+    <definition name="manageUsers" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/users/manageUsers.jsp" />
+    </definition>
+    
+    <definition name="manageDownloads" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/downloads/manageDownloads.jsp" />
+    </definition>
+
+    <definition name="addDownload" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/downloads/addDownload.jsp" />
+    </definition>
+    
+    <definition name="addUser" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/users/addUser.jsp" />
+    </definition>
+    
+    <definition name="addNews" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/news/addNews.jsp" />
+    </definition>
+    
+    <definition name="addNewConfirmation" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/news/addNewsConfirmation.jsp" />
+    </definition>
+    
+    <definition name="addUserConfirmation" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/users/addUserConfirmation.jsp" />
+    </definition>
+    
+    <definition name="addDownloadConfirmation" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/downloads/addDownloadConfirmation.jsp" />
+    </definition>
+    
+    <definition name="modifyUserConfirmation" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/users/modifyUserConfirmation.jsp" />
+    </definition>
+    
+    <definition name="removeUserConfirmation" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/admin/users/removeUserConfirmation.jsp" />
+    </definition>
+
+    <definition name="news" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/news.jsp" />
+    </definition>
+    
+    <definition name="testArc" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/testArc.jsp" />
+    </definition>
+    
+    <definition name="performanceMonitor" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/performanceMonitor.jsp" />
+    </definition>
+    
+    <definition name="sessionFactory" template="/WEB-INF/views/admin/debug/sessionFactory.jsp" />
+    <definition name="sessionFactory-general" template="/WEB-INF/views/admin/debug/sessionFactory-general.jsp" />
+    <definition name="sessionFactory-autre" template="/WEB-INF/views/admin/debug/sessionFactory-autre.jsp" />
+        	
+</tiles-definitions>

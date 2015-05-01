@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Centralisateur</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.username">centralisateur</property>
+        <property name="hibernate.connection.password">centralisateur</property>
+        									
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+        <property name="hibernate.show_sql">true</property>        
+        <!-- <property name="hibernate.connection.pool_size">1</property> -->
+
+        <mapping class="jkt.centralisateur.storage.model.Download" />
+        <mapping class="jkt.centralisateur.storage.model.News" />
+        <mapping class="jkt.centralisateur.storage.model.Profile" />
+        <mapping class="jkt.centralisateur.storage.model.User" />
+        
+        <mapping class="jkt.centralisateur.storage.model.Table1" />
+        <mapping class="jkt.centralisateur.storage.model.Table2" />
+        
+    </session-factory>
+</hibernate-configuration>

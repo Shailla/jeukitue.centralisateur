@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <bean id="serviceChat" class="jkt.centralisateur.service.chat.ServiceChat">
+        <property name="name" value="Service de chat" />
+        <property name="description" value="Permet aux joueurs de chatter entre eux" />
+        <property name="serviceListener" ref="serviceChatUdpListener" />
+        <property name="serviceController" ref="serviceTChatManager" />
+        <property name="serviceSender" ref="serviceChatSender" />
+        <property name="supervisionManager" ref="supervisionManager" />
+    </bean>
+
+    <bean id="serviceTChatManager" class="jkt.centralisateur.service.chat.manager.ServiceTChatControllerImpl">
+        <property name="serviceSender" ref="serviceChatSender" />
+    </bean>
+
+    <bean id="serviceChatUdpListener" class="jkt.centralisateur.service.chat.listener.ServiceUdpListener">
+        <property name="name" value="Service chat UDP listener" />
+        <property name="port" value="4634" />
+        <property name="dataTranslator">
+            <bean class="jkt.centralisateur.service.chat.converter.UdpDataInTranslator" />
+        </property>
+        <property name="supervisionManager" ref="supervisionManager" />
+    </bean>
+    
+    <bean id="serviceChatSender" class="jkt.centralisateur.service.chat.sender.ServiceUdpSender">
+        <property name="udpDataOutTranslator">
+            <bean class="jkt.centralisateur.service.chat.converter.UdpDataOutTranslator" />
+        </property>
+    </bean>
+    
+</beans>

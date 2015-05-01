@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <bean id="serviceTcpExchange" class="jkt.centralisateur.service.tcp.ServiceTcpExchange">
+        <constructor-arg name="serverTcpPort" value="4635" />
+        <property name="name" value="Service d'échange de fichiers par TCP" />
+        <property name="description" value="Permet aux joueurs de télécharger des fichiers dans le jeu" />
+        <property name="supervisionManager" ref="supervisionManager" />
+        <property name="downloadService" ref="downloadService" />
+    </bean>
+    
+</beans>

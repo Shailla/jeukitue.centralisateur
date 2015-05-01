@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="12.1.0.1913"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model ID="{6DF4CDC0-0F63-4420-B91A-DD9094C1B2E2}" Name="MCD Centralisateur" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="Centralisateur.mcd"/>
+		<Model Expanded="Yes" ID="{3B87C303-4F8A-4B61-B37B-06293BF2D6B7}" Name="MPD Centralisateur" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="MPD Centralisateur.mpd"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>

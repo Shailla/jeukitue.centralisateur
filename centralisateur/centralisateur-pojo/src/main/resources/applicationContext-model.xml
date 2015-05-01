@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:configuration.properties" />
+    </bean>
+
+    <bean id="sessionFactory" 
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+
+        <!-- MarqueurDebutGeneration -->
+        <!-- Begin: Portion de code generee par la tache Ant de deploiement du projet hibernate-generation,
+             ne pas modifier -->
+
+        <property name="annotatedClasses">
+            <list>
+                <value>jkt.centralisateur.storage.model.Download</value>
+                <value>jkt.centralisateur.storage.model.News</value>
+                <value>jkt.centralisateur.storage.model.Profile</value>
+                <value>jkt.centralisateur.storage.model.User</value>
+            </list>
+        </property>
+        <!-- MarqueurFinGeneration -->        
+    </bean>
+
+</beans>

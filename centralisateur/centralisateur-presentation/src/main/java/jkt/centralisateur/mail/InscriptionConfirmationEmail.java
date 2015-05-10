@@ -24,7 +24,7 @@ public class InscriptionConfirmationEmail extends Email {
         model.put("lienConfirmation", lienConfirmation.toString());
         
         String templatePath = vmTemplate.getURL().getPath();
-        String texte = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templatePath, model);
+        String texte = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templatePath, "utf-8", model);
         
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(userMail);

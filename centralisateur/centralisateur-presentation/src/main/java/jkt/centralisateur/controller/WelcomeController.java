@@ -2,7 +2,6 @@ package jkt.centralisateur.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jkt.centralisateur.authentication.UserData;
 
@@ -23,9 +22,6 @@ public class WelcomeController {
 		final Authentication authentification = context.getAuthentication();
 		final UserData userData = (UserData) authentification.getPrincipal();
 		final boolean isAdmin = userData.isAdmin();
-		
-		final HttpSession session = request.getSession();
-		session.setAttribute("isAdmin", isAdmin);
 		
 		final ModelAndView mav;
 		

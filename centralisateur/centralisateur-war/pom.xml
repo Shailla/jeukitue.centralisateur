@@ -21,10 +21,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>jkt.centralisateur</groupId>
-			<artifactId>centralisateur-applet</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jkt.centralisateur</groupId>
 			<artifactId>centralisateur-common</artifactId>
 		</dependency>
 		<dependency>

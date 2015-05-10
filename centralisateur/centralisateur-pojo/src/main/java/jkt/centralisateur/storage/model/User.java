@@ -106,7 +106,7 @@ public class User implements java.io.Serializable {
 	}
 	
 	   /*BasicAnnotation:getUuidInscription*/
-    /*AnnColumnAnnotation:getUuidInscription*/@Column(name = "USR_UUID_INSCRIPTION", nullable = false, length = 16)
+    /*AnnColumnAnnotation:getUuidInscription*/@Column(name = "USR_UUID_INSCRIPTION", nullable = true, length = 16)
     public String getUuidInscription() {
         return this.uuidInscription;
     }

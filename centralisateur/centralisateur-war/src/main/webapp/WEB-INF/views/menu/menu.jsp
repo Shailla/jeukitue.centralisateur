@@ -15,13 +15,10 @@
     <tr><td>
         <a href="/centralisateur-war/secure/news.do"><fmt:message key="lien.voirLesNews" /></a>
     </td></tr>
-    <tr><td>
-        <a href="/centralisateur-war/secure/testArc.do"><fmt:message key="lien.testArc" /></a>
-    </td></tr>
  </table>
 
 <%-- Show the administration menu only if the current user has got admin privilige --%>
-<c:if test="<%= (Boolean)session.getAttribute("isAdmin") %>">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<br />
 	<h2><fmt:message key="global.administration" /></h2>
 	<table border="0">
@@ -44,4 +41,4 @@
 	        <a href="/centralisateur-war/secure/admin/performanceMonitor.do"><fmt:message key="lien.performanceMonitor" /></a>
 	    </td></tr>
     </table>
-</c:if>
+</sec:authorize>

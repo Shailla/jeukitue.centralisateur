@@ -13,20 +13,11 @@
         <property name="location" value="classpath:configuration.properties" />
     </bean>
 
-    <bean id="sessionFactory" 
-          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
     
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-        
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>
-
-        <!-- MarqueurDebutGeneration -->
-        <!-- Begin: Portion de code generee par la tache Ant de deploiement du projet hibernate-generation,
-             ne pas modifier -->
 
         <property name="annotatedClasses">
             <list>
@@ -36,7 +27,7 @@
                 <value>jkt.centralisateur.storage.model.User</value>
             </list>
         </property>
-        <!-- MarqueurFinGeneration -->        
+
     </bean>
 
 </beans>

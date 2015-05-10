@@ -9,6 +9,6 @@
         <center><h1><fmt:message key="inscriptionConfirmationDejaInscrit.titre" /></h1></center>
         <hr />
         <h4><fmt:message key="inscriptionConfirmationDejaInscrit.texte" /></h4>
-        <a href="login.html"><fmt:message key="lien.connexionAuSite" /></a>
+        <a href="login.do"><fmt:message key="lien.connexionAuSite" /></a>
     </body>
 </html>

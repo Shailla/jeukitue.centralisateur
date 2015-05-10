@@ -89,10 +89,6 @@
         <put-attribute name="content" value="/WEB-INF/views/news.jsp" />
     </definition>
     
-    <definition name="testArc" extends="template">
-        <put-attribute name="content" value="/WEB-INF/views/testArc.jsp" />
-    </definition>
-    
     <definition name="performanceMonitor" extends="template">
         <put-attribute name="content" value="/WEB-INF/views/performanceMonitor.jsp" />
     </definition>

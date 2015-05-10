@@ -11,7 +11,7 @@ import jkt.centralisateur.storage.result.CreateUserResult;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.collection.PersistentSet;
+import org.hibernate.collection.internal.PersistentSet;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -86,7 +86,7 @@ public class UserBuisiness extends GenericDaoImpl<User, Long> {
 	    final Session session = getSession();
 		
 		// Vérifie si l'utilisateur existe déjà
-		int nbrUsers = (Integer) session.createCriteria(User.class)
+		Long nbrUsers = (Long) session.createCriteria(User.class)
 		        .add(Restrictions.eq(User._login, login))
 		        .setProjection(Projections.count(User._login))
 		        .uniqueResult();

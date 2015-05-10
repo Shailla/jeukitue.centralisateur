@@ -203,7 +203,7 @@ public class DownloadService {
 
         try {
             is = new FileInputStream(fichierSource);
-            pojo.setContentFileAsStream(is);
+            pojo.setContentFileAsStream(is, fichierSource.length());
 
             downloadBuisiness.save(pojo);
             downloadBuisiness.flush();

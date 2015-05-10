@@ -1,13 +1,18 @@
 
+div.logout {
+	position: fixed;
+	right: 10px;
+	top: 5px;
+}
 
-div#menu {
+div.menu {
 	float: left;
 	width: 16%;
 	height: 100%;
 	background-color: #CCCCCC;
 }
 
-div#content {
+div.content {
 	background-color: #FFFFFF;
 }
 

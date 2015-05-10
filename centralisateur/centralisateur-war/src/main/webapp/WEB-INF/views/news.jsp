@@ -5,24 +5,25 @@
 <hr />
 <br />
 
-<c:forEach var="new" items="${news}">
+<c:forEach var="newVar" items="${news}">
     <table>
         <tr>
-            <th><fmt:formatDate value="${new.date}" /></th>
+            <th><fmt:formatDate value="${newVar.date}" /></th>
             <td></td>
         </tr>
         <tr>
             <td></td>
-            <td>${new.text}</td>
+            <td>${newVar.text}</td>
         </tr>
     </table>
-    <c:if test="<%= (Boolean)session.getAttribute("isAdmin") %>">
+    
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
 	    <table>
 	        <tr>
 	            <td>TODO:modifier</td>
 	            <td>TODO:supprimer</td>
 	        </tr>
 	    </table>        
-    </c:if>
+	</sec:authorize>    
     <hr />
 </c:forEach>

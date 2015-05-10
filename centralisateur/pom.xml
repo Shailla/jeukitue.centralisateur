@@ -10,9 +10,6 @@
 	<name>centralisateur</name>
 
 	<modules>
-		<module>centralisateur-remote</module>
-		<module>centralisateur-applet</module>
-
 		<module>centralisateur-common</module>
 		<module>centralisateur-interlocutor</module>
 		<module>centralisateur-service-chat</module>
@@ -20,15 +17,15 @@
 		<module>centralisateur-pojo</module>
 		<module>centralisateur-storage</module>
 		<module>centralisateur-presentation</module>
-
 		<module>centralisateur-war</module>
 	</modules>
 
 	<properties>
-	   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	
-		<spring.version>3.0.3.RELEASE</spring.version>
-		<spring-security.version>3.0.3.RELEASE</spring-security.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring-security.version>4.0.1.RELEASE</spring-security.version>
+		<apache-tiles.version>2.2.2</apache-tiles.version>
 	</properties>
 
 	<build>
@@ -37,9 +34,10 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -82,23 +80,7 @@
 				<artifactId>spring-security-web</artifactId>
 				<version>${spring-security.version}</version>
 			</dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core-tiger</artifactId>
-                <version>2.0.5.RELEASE</version>
-            </dependency>
 
-
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>centralisateur-applet</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>centralisateur-remote</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>centralisateur-pojo</artifactId>
@@ -136,15 +118,15 @@
 			</dependency>
 
 			<dependency>
-				<groupId>jgraph</groupId>
-				<artifactId>jgraph</artifactId>
-				<version>5.13.0.0</version>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.5.3</version>
 			</dependency>
-	        <dependency>
-	            <groupId>org.codehaus.jackson</groupId>
-	            <artifactId>jackson-mapper-asl</artifactId>
-	            <version>1.5.3</version>
-	        </dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.13</version>
+			</dependency>
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
@@ -172,55 +154,44 @@
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.5.11</version>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.12</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>1.5.11</version>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.12</version>
 			</dependency>
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
-				<version>1.2.16</version>
+				<version>1.2.17</version>
 			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.6</version>
 			</dependency>
-            <dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate</artifactId>
-				<version>3.2.7.ga</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>ejb3-persistence</artifactId>
-				<version>3.3.2.Beta1</version>
-			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>3.4.0.GA</version>
+				<version>4.3.9.Final</version>
 			</dependency>
 			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-annotations</artifactId>
-				<version>3.4.0.GA</version>
+				<groupId>org.springframework.webflow</groupId>
+				<artifactId>spring-js</artifactId>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.springframework.webflow</groupId>
-			    <artifactId>spring-js</artifactId>
-			    <version>2.1.0.RELEASE</version>
+				<groupId>org.springframework.webflow</groupId>
+				<artifactId>spring-webflow</artifactId>
+				<version>${spring.version}</version>
 			</dependency>
-	        <dependency>
-	            <groupId>org.springframework.webflow</groupId>
-	            <artifactId>spring-webflow</artifactId>
-	            <version>2.1.0.RELEASE</version>
-	        </dependency>
-        
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
@@ -247,15 +218,15 @@
 				<artifactId>spring-aop</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-hibernate3</artifactId>
-                <version>2.0.8</version>
-            </dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>1.8.0.RELEASE</version>
+			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.8.1</version>
+				<version>4.12</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -267,11 +238,24 @@
 				<groupId>org.apache.tiles</groupId>
 				<artifactId>tiles-jsp</artifactId>
 				<version>2.2.2</version>
+				<exclusions>
+					<exclusion>
+						<!-- commons-digester 2.x est buggé avec Tiles 2.2.2 -->
+						<groupId>commons-digester</groupId>
+						<artifactId>commons-digester</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>taglibs</groupId>
 				<artifactId>standard</artifactId>
 				<version>1.1.2</version>
+			</dependency>
+			<dependency>
+				<!-- commons-digester 2.x est buggé avec Tiles 2.2.2 -->
+				<groupId>commons-digester</groupId>
+				<artifactId>commons-digester</artifactId>
+				<version>1.8</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-collections</groupId>
@@ -281,7 +265,7 @@
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
-				<version>1.1.1</version>
+				<version>1.2</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -304,7 +288,17 @@
 				<artifactId>jta</artifactId>
 				<version>1.1</version>
 			</dependency>
+			<dependency>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>xerces</groupId>
+				<artifactId>xerces</artifactId>
+				<version>2.4.0</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
-
 </project>

@@ -11,10 +11,16 @@
         <script type="text/javascript" src="<c:url value="/scripts/json2.js" /> "></script>
     </head>
     <body>
-        <div id="menu">
+    	<div class="logout">
+			<form id="logoutForm" action="<c:url value='/logout.do' />" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<input type="submit" value="Quit in18n" />
+			</form>
+    	</div>
+        <div class="menu">
             <tiles:insertAttribute name="menu" />
         </div>
-        <div id="content">
+        <div class="content">
             <tiles:insertAttribute name="content" />
         </div>
     </body>

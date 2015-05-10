@@ -13,7 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.Hibernate;
+import org.hibernate.engine.jdbc.NonContextualLobCreator;
 
 import com.orange.ogph.exemple.type.DownloadCategoryType;
 
@@ -150,7 +150,7 @@ public class Download implements java.io.Serializable {
         this.contentFile = contentFile;
     }
     
-    public void setContentFileAsStream(final InputStream contentFileStream) throws IOException {
-        this.contentFile = Hibernate.createBlob(contentFileStream);
+    public void setContentFileAsStream(final InputStream contentFileStream, long length) throws IOException {
+        this.contentFile = NonContextualLobCreator.INSTANCE.createBlob(contentFileStream, length);
     }
 }

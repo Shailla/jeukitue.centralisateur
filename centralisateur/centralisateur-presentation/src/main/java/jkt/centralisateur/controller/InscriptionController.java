@@ -5,32 +5,30 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import jkt.centralisateur.common.Constantes;
 import jkt.centralisateur.mail.InscriptionConfirmationEmail;
 import jkt.centralisateur.storage.dto.UserDto;
 import jkt.centralisateur.storage.result.CreateUserResult;
 import jkt.centralisateur.storage.service.UserService;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.validation.BindException;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-public class InscriptionController extends SimpleFormController {
+@Controller
+public class InscriptionController {
     private UserService userService;
     private MailSender mailSender;
     private InscriptionConfirmationEmail inscriptionConfirmationEmail;
 
-    @Override
-    protected void onBindAndValidate(final HttpServletRequest request,
-                                     final Object command, 
-                                     final BindException errors) throws Exception {
-        UserDto user = (UserDto) command;
-
+    @RequestMapping(value="/inscription.do")
+    public String inscription(final UserDto user, 
+                              final Errors errors) throws Exception {
         // Validation du formulaire
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "erreur.global.champObligatoire");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "erreur.global.champObligatoire");
@@ -38,9 +36,9 @@ public class InscriptionController extends SimpleFormController {
         
         if(errors.getErrorCount() == 0) {
             // Suppression des espaces de début et fin
-            user.setLogin(user.getLogin().trim());
-            user.setPassword(user.getPassword().trim());
-            String emailUser = user.getEmail().trim();
+            user.setLogin(StringUtils.trim(user.getLogin()));
+            user.setPassword(StringUtils.trim(user.getPassword()));
+            String emailUser = StringUtils.trim(user.getEmail());
             user.setEmail(emailUser);
             
             Set<String> roles = new HashSet<String>();
@@ -89,7 +87,7 @@ public class InscriptionController extends SimpleFormController {
             }
         }
         
-        super.onBindAndValidate(request, command, errors);
+        return "inscriptionConfirmation";
     }
     
     public void setUserService(final UserService userService) {

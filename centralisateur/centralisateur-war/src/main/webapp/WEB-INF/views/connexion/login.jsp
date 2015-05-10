@@ -9,18 +9,19 @@
         <center><h1><fmt:message key="login.titre" /></h1></center>
         <hr />
         <center>
-	        <form method="post" action="j_acegi_security_check">        
+	        <form method="post" action="<c:url value='/login.do' />">
+	        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 	            <table border="0">
 		            <tr>
 	                    <td><fmt:message key="global.nom" /></td>
 	                    <td>
-	                        <input type="text" name="j_username" />
+	                        <input type="text" name="username" />
 	                    </td>                
 	                </tr>
 	                <tr>
 	                    <td><fmt:message key="global.motDePasse" /></td>
 	                    <td>
-	                        <input type="password" name="j_password" />
+	                        <input type="password" name="password" />
 	                    </td>
 	                </tr>
 	                <tr>

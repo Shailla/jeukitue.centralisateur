@@ -14,11 +14,20 @@
       http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="jkt.centralisateur.controller" />
+	<context:annotation-config />
+
+	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jacksonMessageConverter" />
+			</list>
+		</property>
+	</bean>
     
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
     
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
 	<!-- 
@@ -27,12 +36,10 @@
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
-				<prop key="/login.html">urlFileNameViewController</prop>
+				<prop key="/login.do">urlFileNameViewController</prop>
                 <prop key="/login_failed.do">urlFileNameViewController</prop>
                 <prop key="/inscription.do">inscriptionController</prop>
                 <prop key="/inscription_confirmation.do">confirmationInscriptionController</prop>
-                
-                <prop key="/secure/testArc.do">testArcController</prop>
 
                 <prop key="/secure/admin/performanceMonitor.do">performanceMonitorController</prop>
                 <prop key="/secure/admin/servicesScoreboard.do">servicesScoreboardController</prop>
@@ -46,11 +53,6 @@
         View resolver
     -->
 
-    <bean class="org.springframework.js.ajax.AjaxUrlBasedViewResolver">
-        <property name="viewClass" value="org.springframework.webflow.mvc.view.FlowAjaxTilesView"/>
-        <property name="order" value="0" />
-    </bean>
-    
     <bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
        <property name="basename" value="views" />
        <property name="order" value="1" />
@@ -76,21 +78,12 @@
 	   <property name="userService" ref="userService" />
 	   <property name="mailSender" ref="mailSender" />
 	   <property name="inscriptionConfirmationEmail" ref="inscriptionConfirmationEmail" />
-       <property name="sessionForm" value="true" />
-       <property name="commandClass" value="jkt.centralisateur.storage.dto.UserDto" />
-       <property name="commandName" value="formulaire" />
-       <property name="formView" value="inscription" />
-       <property name="successView" value="inscriptionConfirmation" />
 	</bean>
 	
 	<bean id="confirmationInscriptionController" class="jkt.centralisateur.controller.ValidationInscriptionController">
 	   <property name="userService" ref="userService" />
 	</bean>
-	
-	<bean id="testArcController" class="jkt.centralisateur.controller.TestArcController">
-       <property name="testArcService" ref="testArcService" />
-    </bean>
-    
+	    
     <bean id="performanceMonitorController" class="jkt.centralisateur.controller.PerformanceMonitorController">
        <property name="performanceCollector" ref="performanceCollector" />
     </bean>
@@ -102,26 +95,6 @@
     <bean id="supervisionController" class="jkt.centralisateur.controller.SupervisionController">
         <property name="serviceManager" ref="serviceManager" />
     </bean>
-    
-    
-    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                Aspect to inject some data in every modelAndViews
-                    (data like user privileges for example)
-    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    
-    <!-- <aop:config>          
-        <aop:pointcut id="handleRequestController" 
-            expression="execution(* jkt.centralisateur.controller.*.*(..))" />
-        <aop:aspect id="modelControllerAspect" ref="modelControllerInjector">
-            <aop:before method="before" pointcut-ref="handleRequestController"/>
-            <aop:after-returning 
-                method="handleRequestReturnInterceptor" 
-                pointcut-ref="handleRequestController"
-                returning="result"/>
-        </aop:aspect>
-    </aop:config>
-    
-    <bean id="modelControllerInjector" class="jkt.centralisateur.aspect.ModelControllerAspect" /> -->
-    
+        
 </beans>
 	

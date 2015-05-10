@@ -87,7 +87,7 @@ public class UserManagerController {
             return addUser(userDto, errors);
         }
         else {
-            return new ModelAndView("redirect:manage_users.do");
+            return new ModelAndView("redirect:/secure/admin/manage_users.do");
         }
     }
     
@@ -117,7 +117,7 @@ public class UserManagerController {
             return new ModelAndView("modifyUser", "userDto", userDto);
         }
         else {
-            return new ModelAndView("redirect:manage_users.do");
+            return new ModelAndView("redirect:redirect:/secure/admin/manage_users.do");
         }
     }
     

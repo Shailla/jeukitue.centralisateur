@@ -92,7 +92,6 @@ public class SessionFactoryController {
         addPair(general, "EntityLoadCount", statistics.getEntityLoadCount());
         addPair(general, "EntityUpdateCount", statistics.getEntityUpdateCount());
         addPair(general, "FlushCount", statistics.getFlushCount());
-        addPair(general, "OperationThreshold", statistics.getOperationThreshold());
         addPair(general, "OptimisticFailureCount", statistics.getOptimisticFailureCount());
         addPair(general, "PrepareStatementCount", statistics.getPrepareStatementCount());
         addPair(general, "QueryCacheHitCount", statistics.getQueryCacheHitCount());
@@ -124,7 +123,6 @@ public class SessionFactoryController {
 
         final List<Object> titles = new ArrayList<Object>();
         titles.add("Role");
-        titles.add("CategoryName");
         titles.add("FetchCount");
         titles.add("LoadCount");
         titles.add("RecreateCount");
@@ -138,7 +136,6 @@ public class SessionFactoryController {
 
             List<Object> statList = new ArrayList<Object>();
             statList.add(role);
-            statList.add(stat.getCategoryName());
             statList.add(stat.getFetchCount());
             statList.add(stat.getLoadCount());
             statList.add(stat.getRecreateCount());
@@ -163,7 +160,6 @@ public class SessionFactoryController {
 
         final List<Object> titles = new ArrayList<Object>();
         titles.add("Entité");
-        titles.add("CategoryName");
         titles.add("DeleteCount");
         titles.add("FetchCount");
         titles.add("InsertCount");
@@ -179,7 +175,6 @@ public class SessionFactoryController {
 
             final List<Object> statList = new ArrayList<Object>();
             statList.add(entityName);
-            statList.add(stat.getCategoryName());
             statList.add(stat.getDeleteCount());
             statList.add(stat.getFetchCount());
             statList.add(stat.getInsertCount());
@@ -208,7 +203,6 @@ public class SessionFactoryController {
         titles.add("CacheHitCount");
         titles.add("CacheMissCount");
         titles.add("CachePutCount");
-        titles.add("CategoryName");
         titles.add("ExecutionAvgTime");
         titles.add("ExecutionCount");
         titles.add("ExecutionMaxTime");
@@ -225,7 +219,6 @@ public class SessionFactoryController {
             statList.add(stat.getCacheHitCount());
             statList.add(stat.getCacheMissCount());
             statList.add(stat.getCachePutCount());
-            statList.add(stat.getCategoryName());
             statList.add(stat.getExecutionAvgTime());
             statList.add(stat.getExecutionCount());
             statList.add(stat.getExecutionMaxTime());
@@ -251,7 +244,6 @@ public class SessionFactoryController {
 
         final List<Object> titles = new ArrayList<Object>();
         titles.add("Région");
-        titles.add("CategoryName");
         titles.add("ElementCountInMemory");
         titles.add("ElementCountOnDisk");
         titles.add("HitCount");
@@ -266,7 +258,6 @@ public class SessionFactoryController {
 
             final List<Object> statList = new ArrayList<Object>();
             statList.add(regionName);
-            statList.add(stat.getCategoryName());
             statList.add(stat.getElementCountInMemory());
             statList.add(stat.getElementCountOnDisk());
             //stat.getEntries();

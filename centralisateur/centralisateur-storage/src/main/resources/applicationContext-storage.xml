@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:security="http://www.springframework.org/schema/security"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/tx
@@ -11,12 +13,12 @@
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+<!--     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
 
-    <aop:config proxy-target-class="true" />
+    <aop:config proxy-target-class="true" /> -->
 
 	<!-- Transaction manager -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 		<property name="nestedTransactionAllowed" value="true" />
 	</bean>
@@ -56,10 +58,6 @@
 	<bean id="userService" class="jkt.centralisateur.storage.service.UserService">
 	   <property name="userBuisiness" ref="userBuisiness" />
 	</bean>
-    
-    <bean id="testArcService" class="jkt.centralisateur.storage.buisiness.TestArcService">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
     
     <bean id="downloadService" class="jkt.centralisateur.storage.service.DownloadService">
         <property name="downloadBuisiness" ref="downloadBuisiness" />

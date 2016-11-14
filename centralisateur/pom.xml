@@ -10,6 +10,7 @@
 	<name>centralisateur</name>
 
 	<modules>
+		<module>ssh-inspector</module>
 		<module>centralisateur-common</module>
 		<module>centralisateur-interlocutor</module>
 		<module>centralisateur-service-chat</module>
